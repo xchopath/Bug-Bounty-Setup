@@ -30,5 +30,4 @@ mv subfinder /usr/local/bin/
 curl -s "https://api.github.com/repos/lc/gau/releases/latest" | grep "gau_.*_linux_amd64.tar.gz" | cut -d : -f 2,3 | tr -d \" | wget -qi -
 tar -xvf $(ls | grep gau_ | grep \.tar\.gz$)
 mv gau /usr/local/bin/
-wget https://raw.githubusercontent.com/lc/gau/master/.gau.toml
-mv .gau.toml ~/
+wget "https://raw.githubusercontent.com/lc/gau/master/.gau.toml" -O ~/.gau.toml
