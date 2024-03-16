@@ -1,6 +1,7 @@
 #!/usr/bin/env bash
 # HackerOne Target Scraper by @xchopath
-# Dependencies: apt intall jq curl -y
+# Dependencies: apt intall jq curl tee -y
+# Run: bash h1-scrap.sh | tee -a h1-scopes.txt
 
 curl -s "https://hackerone.com/directory/programs" -o h1-scrap.init -c h1-scrap.cookie
 
