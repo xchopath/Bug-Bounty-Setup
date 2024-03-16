@@ -42,3 +42,6 @@ mv $(ls | grep gowitness | grep "linux") gowitness
 chmod +x gowitness
 mv gowitness /usr/local/bin/
 
+curl -s "https://api.github.com/repos/projectdiscovery/httpx/releases/latest" | grep "httpx_.*_linux_amd64.zip" | cut -d : -f 2,3 | tr -d \" | wget -qi -
+unzip -o $(ls | grep httpx_ | grep zip$)
+mv httpx /usr/local/bin/
