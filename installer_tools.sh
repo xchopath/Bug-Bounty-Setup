@@ -31,3 +31,14 @@ curl -s "https://api.github.com/repos/lc/gau/releases/latest" | grep "gau_.*_lin
 tar -xvf $(ls | grep gau_ | grep \.tar\.gz$)
 mv gau /usr/local/bin/
 wget "https://raw.githubusercontent.com/lc/gau/master/.gau.toml" -O ~/.gau.toml
+
+wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
+dpkg -i google-chrome-stable_current_amd64.deb
+apt-get -f install
+dpkg -i google-chrome-stable_current_amd64.deb
+
+curl -s "https://api.github.com/repos/sensepost/gowitness/releases/latest" | grep "gowitness-.*-linux-amd64" | cut -d : -f 2,3 | tr -d \" | wget -qi -
+mv $(ls | grep gowitness | grep "linux") gowitness
+chmod +x gowitness
+mv gowitness /usr/local/bin/
+
