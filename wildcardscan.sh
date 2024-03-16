@@ -8,11 +8,13 @@ NUCLEI_OUTPUT="$(pwd)/nuclei_$(echo "${TARGET}" | sed 's/\./_/g' | sed 's/:/_/g'
 
 subfinder -silent -d ${TARGET} -o ${SUBFINDER_OUTPUT}
 if [[ $(cat ${SUBFINDER_OUTPUT} | wc -l) -eq 0 ]]; then
+	rm ${SUBFINDER_OUTPUT}
 	exit
 fi
 
 cat ${SUBFINDER_OUTPUT} | httpx -silent | tee -a ${HTTPX_OUTPUT}
 if [[ $(cat ${HTTPX_OUTPUT} | wc -l) -eq 0 ]]; then
+	rm ${HTTPX_OUTPUT}
 	exit
 fi
 
