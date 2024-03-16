@@ -1,2 +1,3 @@
-# Bug-Bounty-Setup
-My Bug Bounty setup.
+# Bug Bounty Setup
+
+My bug bounty setup.
