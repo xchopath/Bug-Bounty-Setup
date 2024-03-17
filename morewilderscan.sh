@@ -13,6 +13,27 @@ if [[ ! -d ${RESULT_PATH} ]]; then
 	mkdir ${RESULT_PATH}
 fi
 
+#############################
+##### URL DUMP FUNCTION #####
+#############################
+function urldump() {
+	TARGET="${1}"
+	URLDUMP_OUTPUT="/tmp/urldump_$(echo "${TARGET}" | sed 's/\./_/g' | sed 's/:/_/g' | grep -o '[a-zA-Z0-9_]' | sed ':a;N;$!ba;s/\n//g').txt"
+	KATANA_FID=$(echo "$(shuf -i 10000-99999 | head -1) `date`" | md5sum | awk '{print $1}')
+	GAU_FID=$(echo "$(shuf -i 10000-99999 | head -1) `date`" | md5sum | awk '{print $1}')
+	katana -u ${TARGET} -d 5 -sc -o /tmp/${KATANA_FID}
+	gau ${TARGET} --blacklist png,jpg,jpeg,gif,mp3,mp4,svg,woff,woff2,etf,eof,otf,css,exe,ttf,eot --o /tmp/${GAU_FID}
+	cat /tmp/${KATANA_FID} >> ${URLDUMP_OUTPUT}
+	cat /tmp/${GAU_FID} >> ${URLDUMP_OUTPUT}
+	rm /tmp/${KATANA_FID}
+	rm /tmp/${GAU_FID}
+	cat ${URLDUMP_OUTPUT} | sort -V | uniq
+	rm ${URLDUMP_OUTPUT}
+}
+
+#########################
+##### Wildcard Scan #####
+#########################
 function wildcardscan() {
 	TARGET="${1}"
 
@@ -37,6 +58,10 @@ function wildcardscan() {
 	do
 		urldump ${HTTP} | tee -a ${URLDUMP_OUTPUT}
 		gowitness single ${HTTP} -P ${RESULT_PATH}
+		if [[ $(cat ${URLDUMP_OUTPUT} | wc -l) -eq 0 ]]; then
+			rm ${URLDUMP_OUTPUT}
+			exit
+		fi
 	done
 
 	nuclei -t http/cves,http/exposures,http/exposed-panels,http/technologies,http/takeovers,http/default-logins -list ${HTTPX_OUTPUT} -o ${NUCLEI_OUTPUT}
@@ -46,6 +71,9 @@ function wildcardscan() {
 	fi
 }
 
+################
+##### MAIN #####
+################
 if [[ ! -f ${TARGET_LIST} ]]; then
 	echo "[ERROR] Please use correct command"
 	echo "   Example: ${0} list.txt"
