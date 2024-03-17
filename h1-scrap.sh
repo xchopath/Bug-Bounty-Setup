@@ -4,7 +4,7 @@
 ##### HACKERONE SCRAPING #####
 ##############################
 
-curl -s "https://hackerone.com/directory/programs" -o /tmp/h1-scrap.init -c /tmp/h1-scrap.cookie
+curl -s "https://hackerone.com/directory/programs" -o h1-scrap.init -c h1-scrap.cookie
 CSRF_TOKEN="$(cat h1-scrap.init | grep csrf-token | grep -Po 'content="\K.*?(?=")')"
 SCRAP_PAGE="MA"
 
@@ -37,7 +37,7 @@ while [[ true ]]; do
 
 	if [ $((SCRAP_PAGE % 10)) -eq 0 ]; then
 		# REINITIALIZATION
-		curl -s "https://hackerone.com/directory/programs" -H 'User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/116.0.5845.97 Safari/537.36' -o /tmp/h1-scrap.init -c /tmp/h1-scrap.cookie
+		curl -s "https://hackerone.com/directory/programs" -H 'User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/116.0.5845.97 Safari/537.36' -o h1-scrap.init -c h1-scrap.cookie
 		CSRF_TOKEN="$(cat h1-scrap.init | grep csrf-token | grep -Po 'content="\K.*?(?=")')"
 	fi
 done
