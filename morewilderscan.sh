@@ -7,7 +7,7 @@
 
 TARGET_LIST="${1}"
 RESULT_PATH="$(pwd)/scan-result"
-MAX_PROCESS=10
+MAX_PROCESS=5
 
 if [[ ! -d ${RESULT_PATH} ]]; then
 	mkdir ${RESULT_PATH}
