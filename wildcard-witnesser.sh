@@ -36,29 +36,4 @@ function wildcardwitnesser() {
 	)
 }
 
-if [[ ${1} == '-h' ]] || [[ ${1} == '--help' ]]; then
-	echo "HELP"
-	echo "   Example:"
-	echo "     - ${0} -d domain.com"
-	echo "     - ${0} -f list.txt"
-	exit
-fi
-
-if [[ ${1} -eq '-d' ]] && [[ ! -z ${2} ]]; then
-	wildcardwitnesser "${2}"
-elif [[ ${1} -eq '-f' ]] && [[ -f ${2} ]]; then
-	(
-		for TARGET in $(cat ${2})
-		do
-			((PROCESS_NUMBER=PROCESS_NUMBER%2)); ((PROCESS_NUMBER++==0)) && wait
-			wildcardwitnesser "${TARGET}" &
-		done
-		wait
-	)
-else
-	echo "[ERROR] Invalid command"
-	echo "   Example:"
-	echo "     - ${0} -d domain.com"
-	echo "     - ${0} -f list.txt"
-	exit
-fi
+wildcardwitnesser "${1}"
