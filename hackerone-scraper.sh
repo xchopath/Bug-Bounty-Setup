@@ -1,5 +1,6 @@
 #!/usr/bin/env bash
-# Run: hackerone-scraper.sh | tee -a h1-scopes.tsv
+# Run:
+# bash hackerone-scraper.sh | tee -a h1-scopes.tsv
 
 ##############################
 ##### HACKERONE SCRAPING #####
