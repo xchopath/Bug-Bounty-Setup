@@ -5,13 +5,15 @@ if [[ $(whoami) != "root" ]]; then
 	exit
 fi
 
-# INSTALL GO
-GO_DEV_END=$(curl -s "https://go.dev/dl/" | grep -B4 $(uname -m | sed 's/_/-/g') | grep '/dl/' | grep $(uname | tr '[:upper:]' '[:lower:]') | grep -Po 'href="\K.*?(?=")' | head -1)
-wget "https://go.dev${GO_DEV_END}"
-GO_BIN_ZIP=$(echo "${GO_DEV_END}" | awk -F '/' '{print $3}')
-tar -xvf ${GO_BIN_ZIP}
-mv go /usr/local
-ln -sf /usr/local/go/bin/go /usr/bin/go
+apt install jq tmux -y
+
+## INSTALL GO
+#GO_DEV_END=$(curl -s "https://go.dev/dl/" | grep -B4 $(uname -m | sed 's/_/-/g') | grep '/dl/' | grep $(uname | tr '[:upper:]' '[:lower:]') | grep -Po 'href="\K.*?(?=")' | head -1)
+#wget "https://go.dev${GO_DEV_END}"
+#GO_BIN_ZIP=$(echo "${GO_DEV_END}" | awk -F '/' '{print $3}')
+#tar -xvf ${GO_BIN_ZIP}
+#mv go /usr/local
+#ln -sf /usr/local/go/bin/go /usr/bin/go
 
 
 curl -s "https://api.github.com/repos/projectdiscovery/katana/releases/latest" | grep "katana_.*_linux_amd64.zip" | cut -d : -f 2,3 | tr -d \" | wget -qi -
