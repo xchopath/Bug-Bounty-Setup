@@ -62,6 +62,8 @@ function wildcardscan() {
 			rm ${URLDUMP_OUTPUT}
 			exit
 		fi
+		XRAY_OUTPUT="${RESULT_PATH}/$(date +"%Y%m%d%H%M")_xray_$(echo "${HTTP}" | sed 's/\./_/g' | sed 's/:/_/g' | grep -o '[a-zA-Z0-9_]' | sed ':a;N;$!ba;s/\n//g').html"
+		./xray webscan --url ${HTTP} --html-output ${XRAY_OUTPUT}
 	done
 
 	nuclei -t http/cves,http/exposures,http/exposed-panels,http/technologies,http/takeovers,http/default-logins -list ${HTTPX_OUTPUT} -o ${NUCLEI_OUTPUT}
