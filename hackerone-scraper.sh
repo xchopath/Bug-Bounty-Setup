@@ -36,6 +36,10 @@ while [[ true ]]; do
 		break
 	fi
 
+	if [[ $(echo "${LIST_PROGRAM}" | jq -r '.data.teams.pageInfo.hasNextPage' 2> /dev/null) != 'true' ]]; then
+		break
+	fi
+
 	if [ $((SCRAP_PAGE % 10)) -eq 0 ]; then
 		# REINITIALIZATION
 		curl -s "https://hackerone.com/directory/programs" -H 'User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/116.0.5845.97 Safari/537.36' -o h1-scrap.init -c h1-scrap.cookie
