@@ -16,10 +16,10 @@ fi
 function wildcardscan() {
 	TARGET="${1}"
 
-	SUBFINDER_OUTPUT="${RESULT_PATH}/subfinder_$(echo "${TARGET}" | sed 's/\./_/g' | sed 's/:/_/g' | grep -o '[a-zA-Z0-9_]' | sed ':a;N;$!ba;s/\n//g').txt"
-	HTTPX_OUTPUT="${RESULT_PATH}/httpx_$(echo "${TARGET}" | sed 's/\./_/g' | sed 's/:/_/g' | grep -o '[a-zA-Z0-9_]' | sed ':a;N;$!ba;s/\n//g').txt"
-	NUCLEI_OUTPUT="${RESULT_PATH}/nuclei_$(echo "${TARGET}" | sed 's/\./_/g' | sed 's/:/_/g' | grep -o '[a-zA-Z0-9_]' | sed ':a;N;$!ba;s/\n//g').txt"
-	URLDUMP_OUTPUT="${RESULT_PATH}/urldump_$(echo "${TARGET}" | sed 's/\./_/g' | sed 's/:/_/g' | grep -o '[a-zA-Z0-9_]' | sed ':a;N;$!ba;s/\n//g').txt"
+	SUBFINDER_OUTPUT="${RESULT_PATH}/$(date +"%Y%m%d%H%M")_subfinder_$(echo "${TARGET}" | sed 's/\./_/g' | sed 's/:/_/g' | grep -o '[a-zA-Z0-9_]' | sed ':a;N;$!ba;s/\n//g').txt"
+	HTTPX_OUTPUT="${RESULT_PATH}/$(date +"%Y%m%d%H%M")_httpx_$(echo "${TARGET}" | sed 's/\./_/g' | sed 's/:/_/g' | grep -o '[a-zA-Z0-9_]' | sed ':a;N;$!ba;s/\n//g').txt"
+	NUCLEI_OUTPUT="${RESULT_PATH}/$(date +"%Y%m%d%H%M")_nuclei_$(echo "${TARGET}" | sed 's/\./_/g' | sed 's/:/_/g' | grep -o '[a-zA-Z0-9_]' | sed ':a;N;$!ba;s/\n//g').txt"
+	URLDUMP_OUTPUT="${RESULT_PATH}/$(date +"%Y%m%d%H%M")_urldump_$(echo "${TARGET}" | sed 's/\./_/g' | sed 's/:/_/g' | grep -o '[a-zA-Z0-9_]' | sed ':a;N;$!ba;s/\n//g').txt"
 
 	subfinder -silent -d ${TARGET} -o ${SUBFINDER_OUTPUT}
 	if [[ $(cat ${SUBFINDER_OUTPUT} | wc -l) -eq 0 ]]; then
