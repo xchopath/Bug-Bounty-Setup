@@ -50,4 +50,5 @@ mv httpx /usr/local/bin/
 curl -s "https://api.github.com/repos/chaitin/xray/releases/latest" | grep "xray_linux_amd64.zip" | cut -d : -f 2,3 | tr -d \" | wget -qi -
 unzip -o $(ls | grep xray_linux_amd64 | grep zip$)
 chmod +x xray_linux_amd64
-./xray_linux_amd64
+mv xray_linux_amd64 xray
+./xray
